@@ -139,7 +139,7 @@ def subsample(gtf, bam, pkl):
                 overlap += 1
                 hist['f'] = True
 
-        print "\n No Overlap count: " + str(noOverlap)
+        print "\nNo Overlap count: " + str(noOverlap)
         print "Overlap count: " + str(overlap)
 
 if __name__=="__main__":
