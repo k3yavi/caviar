@@ -61,3 +61,9 @@ rule align_txome:
     run:
         shell("mkdir -p {txomeOutPath}")
         shell("{starBin} --runThreadN {thread} --genomeDir {txomeIndexPath} –-outFilterMultimapNmax 200 -–outFilterMismatchNmax 99999 –-outFilterMismatchNoverLmax 0.2 -–alignIntronMin 1000 –-alignIntronMax 0 –-limitOutSAMoneReadBytes 1000000 --outSAMtype BAM Unsorted --readFilesIn {readsFile} --outFileNamePrefix {txomeOutPath}")
+
+#Given gtf and bam it count number of reads coming from genomic feature, inc by 1 if any alignment of read is overlapping
+#python countSAMbyfeature.py --gtf ../../alevin/data/mohu/gtf/mohu.gtf  --bam ../testing/subBam/d_genome.bam --pkl ../testing/pkl/gtf_gene.pkl --feature gene
+
+#Given gtf abd bam it counts number of reads coming from 3' exon using txp as feature, inc by 1 if any alignment overlaps
+#python countSAMbyExon.py --gtf ../../alevin/data/mohu/gtf/mohu.gtf  --bam ../testing/subBam/d_genome.bam --pkl ../testing/pkl/gtf.pkl
