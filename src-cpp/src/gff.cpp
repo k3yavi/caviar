@@ -521,10 +521,10 @@ int GffObj::addExon(GffReader* reader, GffLine* gl, bool keepAttr, bool noExonAt
          if (attrs==NULL) //place the parsed attributes directly at transcript level
            parseAttrs(attrs, gl->info);
          }
-       else { //need all exon-level attributes
-         parseAttrs(exons[eidx]->attrs, gl->info, true);
-         }
-      }
+     else { //need all exon-level attributes
+       parseAttrs(exons[eidx]->attrs, gl->info, true);
+     }
+  }
   return eidx;
 }
 
@@ -1050,7 +1050,7 @@ bool GffReader::addExonFeature(GffObj* prevgfo, GffLine* gffline, GHash<CNonExon
 		r=false;
 		if (!gff_warns) exit(1);
 	}
-	int eidx=prevgfo->addExon(this, gffline, !noExonAttr, noExonAttr);
+	int eidx=prevgfo->addExon(this, gffline, noExonAttr, !noExonAttr);
 	if (eidx>=0 && gffline->ID!=NULL && gffline->exontype==0)
 		subfPoolAdd(pex, prevgfo);
 	return r;
@@ -1410,9 +1410,15 @@ void GffObj::parseAttrs(GffAttrs*& atrlist, char* info, bool isExon) {
     if (ech!=NULL) { // attr=value format found
        *ech='\0';
        //if (noExonAttr && (strcmp(start, "exon_number")==0 || strcmp(start, "exon")==0)) { start=pch; continue; }
+       if(!isExon){
        if (strcmp(start, "exon_number")==0 || strcmp(start, "exon")==0 ||
               strcmp(start, "exon_id")==0)
            { start=pch; continue; }
+       }
+       else{
+         if (strcmp(start, "exon_number")==0 || strcmp(start, "exon")==0)
+           { start=pch; continue; }
+       }
        ech++;
        while (*ech==' ' && ech<endinfo) ech++;//skip extra spaces after the '='
        //atrlist->Add(new GffAttr(names->attrs.addName(start),ech));

@@ -18,17 +18,16 @@ int main(int argc, char* argv[]) {
     size_t nfeat = reader.gflst.Count();
     for (size_t i=0; i < nfeat; ++i) {
        GffObj* f = reader.gflst[i];
-       if (f->isTranscript()) {
 
-           std::cout << f->getID() << '\t' << f->getGeneID() << '\t';
-           if (f->attrs) {
-               for (size_t j=0; j < f->attrs->Count(); ++j) {
-                   std::cout << f->getAttrName(j) << "\t" << f->getAttrValue(j) << "\t";
-               }
-           }
-           std::cout << "\n";
+       if(f->exonOverlap(13453, 13454)){
+         int idx = static_cast<int>(f->exonOverlapIdx(13453, 13454));
+         GffExon* ex = f->exons[idx];
+
+         std::cout << f->getID() << '\t' << f->getGeneID() << "\t"
+                   << ex->getAttr(f->names, "exon_id") << std::endl;
        }
     }
-    std::exit(0);
+    std::cout << "Exit Success";
+    return 0;
 }
 
