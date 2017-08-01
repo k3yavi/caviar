@@ -135,7 +135,7 @@ def subsample(gtf, bam, pkl):
                 continue
             pos = int(line.reference_start)
             iTree = utrDict[chromo]
-            if len(iTree[pos-30:pos+30]):
+            if len(iTree[pos]):
                 overlap += 1
                 hist['f'] = True
 
