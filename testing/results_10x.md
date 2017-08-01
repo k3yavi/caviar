@@ -28,11 +28,19 @@ Txome = c + d + g = **135M**(134,562,047)
   * Almost *none* intergenic data
   * Almost everything is inside *exonic* region.
   * Only (900k-37k) out of 10M is from **non** 3' exons i.e. padding would not help alot.
+  * Salmon reports 9,706,046(9.7M) of these so typical STAR failure cases.
+
+* Q: Why does **d** 17.5M is thrown by gentrome?
+  * **b_genome**
+    * 1.5M intergenic data (don't know how txome is mapping)
+    * 13.8M (17.5M-1.5M-1.2M) intronic data
+    * Only 1.2M is from exonic region of which 800k from 3'-exon
+  * **b_txome**
+    * All have copies map to txome no matter intra, inter gene/exon.
+  * Equally good matches if mapped genome/txome *independantly*, again not interesting for 3' data.
+  * Salmon reports only 2.5M of 17.5M reads
 
 * Q: Why does **a** 38M not mapped by txome?  
   * 3M are intergenic so even genomce can't map it
   * 34.5M(37.5M-3M) are intronic-region (can we recover from these?) so txome can't map.
   * only 829k are from exonic of which 430k is from 3'
-
-* Q: Can we possibly gain anything by padding in any set (a,b,d)?  
-
